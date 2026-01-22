@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: api-customer
+  mongodb:
+    uri: mongodb://localhost:27017/customer
+
+client:
+  address:
+    url: http://localhost:8081/addresses
+
