@@ -5,12 +5,12 @@ import com.api.customer.application.ports.in.InsertCustomerInputPort;
 import com.api.customer.application.ports.out.FindAddressByZipCodeOutputPort;
 import com.api.customer.application.ports.out.InsertCustomerOutputPort;
 
-public class InsertCustomerUsecase implements InsertCustomerInputPort {
+public class InsertCustomerUseCase implements InsertCustomerInputPort {
 
     private final FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort;
     private final InsertCustomerOutputPort insertCustomerOutputPort;
 
-    public InsertCustomerUsecase(FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort,
+    public InsertCustomerUseCase(FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort,
                                  InsertCustomerOutputPort insertCustomerOutputPort) {
         this.findAddressByZipCodeOutputPort = findAddressByZipCodeOutputPort;
         this.insertCustomerOutputPort = insertCustomerOutputPort;
@@ -21,6 +21,5 @@ public class InsertCustomerUsecase implements InsertCustomerInputPort {
         var address = findAddressByZipCodeOutputPort.find(zipCode);
         customer.setAddress(address);
         insertCustomerOutputPort.insert(customer);
-
     }
 }

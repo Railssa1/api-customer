@@ -3,12 +3,12 @@ package com.api.customer.adapters.out;
 import com.api.customer.adapters.out.repository.CustomerRepository;
 import com.api.customer.adapters.out.repository.mapper.CustomerEntityMapper;
 import com.api.customer.application.core.domain.Customer;
-import com.api.customer.application.ports.out.InsertCustomerOutputPort;
+import com.api.customer.application.ports.out.FindCustomerByIdOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class InsertCustomerAdapter implements InsertCustomerOutputPort {
+import java.util.Optional;
+
+public class FindCustomerByIdAdapter implements FindCustomerByIdOutputPort {
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -16,8 +16,8 @@ public class InsertCustomerAdapter implements InsertCustomerOutputPort {
     private CustomerEntityMapper customerEntityMapper;
 
     @Override
-    public void insert(Customer customer) {
-        var customerEntity = customerEntityMapper.toCustomerEntity(customer);
-        customerRepository.save(customerEntity);
+    public Optional<Customer> find(String id) {
+        var customerEntity = customerRepository.findById(id);
+        return customerEntity.map(customer -> customerEntityMapper.toCustomer(customer));
     }
 }
