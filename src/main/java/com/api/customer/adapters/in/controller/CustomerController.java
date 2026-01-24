@@ -2,11 +2,12 @@ package com.api.customer.adapters.in.controller;
 
 import com.api.customer.adapters.in.controller.mapper.CustomerMapper;
 import com.api.customer.adapters.in.controller.request.CustomerRequest;
+import com.api.customer.adapters.in.controller.response.CustomerResponse;
+import com.api.customer.application.ports.in.FindCustomerByIdInputPort;
 import com.api.customer.application.ports.in.InsertCustomerInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -16,11 +17,22 @@ public class CustomerController {
     private InsertCustomerInputPort insertCustomerInputPort;
 
     @Autowired
+    private FindCustomerByIdInputPort findCustomerByIdInputPort;
+
+    @Autowired
     private CustomerMapper customerMapper;
 
+    @PostMapping
     public ResponseEntity<Void> insert(CustomerRequest customerRequest){
         var customer = customerMapper.toCustomer(customerRequest);
         insertCustomerInputPort.insert(customer, customerRequest.getZipCode());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponse> findById(@PathVariable String id) {
+        var customer = findCustomerByIdInputPort.find(id);
+        var customerResponse = customerMapper.toCustomerResponse(customer);
+        return ResponseEntity.ok(customerResponse);
     }
 }

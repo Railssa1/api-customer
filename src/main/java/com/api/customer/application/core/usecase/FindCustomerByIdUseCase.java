@@ -1,10 +1,11 @@
 package com.api.customer.application.core.usecase;
 
 import com.api.customer.application.core.domain.Customer;
+import com.api.customer.application.ports.in.FindCustomerByIdInputPort;
 import com.api.customer.application.ports.out.FindCustomerByIdOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class FindCustomerByIdUseCase {
+public class FindCustomerByIdUseCase implements FindCustomerByIdInputPort {
     @Autowired
     private final FindCustomerByIdOutputPort findCustomerByIdOutputPort;
 
@@ -12,7 +13,8 @@ public class FindCustomerByIdUseCase {
         this.findCustomerByIdOutputPort = findCustomerByIdOutputPort;
     }
 
-    public Customer read(String id){
+    @Override
+    public Customer find(String id){
       return findCustomerByIdOutputPort.find(id).orElseThrow(() ->
               new RuntimeException("Customer not found"));
     }
