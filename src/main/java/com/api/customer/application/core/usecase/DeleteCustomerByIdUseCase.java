@@ -5,11 +5,7 @@ import com.api.customer.application.ports.out.DeleteCustomerByIdOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DeleteCustomerByIdUseCase {
-
-    @Autowired
     private final DeleteCustomerByIdOutputPort deleteCustomerByIdOutputPort;
-
-    @Autowired
     private final FindCustomerByIdInputPort findCustomerByIdInputPort;
 
     DeleteCustomerByIdUseCase(DeleteCustomerByIdOutputPort deleteCustomerByIdOutputPort, FindCustomerByIdInputPort findCustomerByIdInputPort){
