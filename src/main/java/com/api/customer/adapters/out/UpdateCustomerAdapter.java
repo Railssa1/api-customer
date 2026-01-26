@@ -3,14 +3,13 @@ package com.api.customer.adapters.out;
 import com.api.customer.adapters.out.repository.CustomerRepository;
 import com.api.customer.adapters.out.repository.mapper.CustomerEntityMapper;
 import com.api.customer.application.core.domain.Customer;
-import com.api.customer.application.ports.out.FindCustomerByIdOutputPort;
+import com.api.customer.application.ports.out.UpdateCustomerOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
-public class FindCustomerByIdAdapter implements FindCustomerByIdOutputPort {
+public class UpdateCustomerAdapter implements UpdateCustomerOutputPort {
+
     @Autowired
     private CustomerRepository customerRepository;
 
@@ -18,8 +17,8 @@ public class FindCustomerByIdAdapter implements FindCustomerByIdOutputPort {
     private CustomerEntityMapper customerEntityMapper;
 
     @Override
-    public Optional<Customer> find(String id) {
-        var customerEntity = customerRepository.findById(id);
-        return customerEntity.map(customer -> customerEntityMapper.toCustomer(customer));
+    public void update(Customer customer, String zipCode) {
+        var customerEntity = customerEntityMapper.toCustomerEntity(customer);
+        customerRepository.save(customerEntity);
     }
 }
