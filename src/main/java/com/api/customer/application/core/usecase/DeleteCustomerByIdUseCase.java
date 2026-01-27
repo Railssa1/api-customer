@@ -8,7 +8,7 @@ public class DeleteCustomerByIdUseCase {
     private final DeleteCustomerByIdOutputPort deleteCustomerByIdOutputPort;
     private final FindCustomerByIdInputPort findCustomerByIdInputPort;
 
-    DeleteCustomerByIdUseCase(DeleteCustomerByIdOutputPort deleteCustomerByIdOutputPort, FindCustomerByIdInputPort findCustomerByIdInputPort){
+    public DeleteCustomerByIdUseCase(DeleteCustomerByIdOutputPort deleteCustomerByIdOutputPort, FindCustomerByIdInputPort findCustomerByIdInputPort){
         this.deleteCustomerByIdOutputPort = deleteCustomerByIdOutputPort;
         this.findCustomerByIdInputPort = findCustomerByIdInputPort;
     }
