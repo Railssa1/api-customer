@@ -8,9 +8,9 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
-    @Mapping(target = "address")
-    @Mapping(target = "isValidCpf")
-    @Mapping(target = "id")
+    @Mapping(target = "address", ignore = true)
+    @Mapping(target = "validCpf", ignore = true)
+    @Mapping(target = "id", ignore = true)
     Customer toCustomer(CustomerRequest customerRequest);
 
     CustomerResponse toCustomerResponse(Customer customer);

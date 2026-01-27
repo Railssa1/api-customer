@@ -11,7 +11,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.HashMap;
-import java.util.Map;JsonDeserializer
+import java.util.Map;
 
 import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 
@@ -22,13 +22,14 @@ public class KafkaConsumerConfig {
     public ConsumerFactory<String, CustomerMessage> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        props.put(GROUP_ID_CONFIG, "arantes");
+        props.put(GROUP_ID_CONFIG, "api-costumer");
         props.put(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         props.put(AUTO_OFFSET_RESET_CONFIG, "earliest");
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), new
                 JsonDeserializer<>(CustomerMessage.class));
     }
+
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, CustomerMessage>
     kafkaListenerContainerFactory() {
